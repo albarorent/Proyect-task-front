@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400&family=Open+Sans:wght@300&display=swap");
+body {
+  background-image: url(../public/universe\ desktop\ wallpaper.png);
+  background-size: cover; /* Puedes ajustar esto según tus necesidades */
+  background-position: inherit; /* Puedes ajustar esto según tus necesidades */
+  background-repeat: no-repeat;
+  font-family: "Open Sans", sans-serif;
+  min-height: 100vh;
+}
+
+@keyframes crawl {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.crawl-text {
+  animation: crawl 10s linear infinite; /* Ajusta la duración según tus preferencias */
+}
