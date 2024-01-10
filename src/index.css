@@ -3,7 +3,7 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400&family=Open+Sans:wght@300&display=swap");
 body {
-  background-image: url(../public/universe.png);
+  background-image: url(../public/universe.webp);
   background-size: cover; /* Puedes ajustar esto según tus necesidades */
   background-position: inherit; /* Puedes ajustar esto según tus necesidades */
   background-repeat: no-repeat;
