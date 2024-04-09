@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-function NavBar() {
+
+export const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
   return (
     <nav className="bg-transparent bg-opacity-70 backdrop-filter backdrop-blur-sm py-5 px-10 rounded-lg grid sm:grid-cols-2">
@@ -56,5 +57,3 @@ function NavBar() {
     </nav>
   );
 }
-
-export default NavBar;
