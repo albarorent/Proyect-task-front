@@ -8,7 +8,7 @@ import ProfilePage from "./pages/ProfilePage";
 import HomePage from "./pages/HomePage";
 import ProtectedRoute from "./ProtectedRoute";
 import { TaskProvider } from "./context/TaskContext";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/Navbar";
 
 function App() {
   return (
