@@ -1,5 +1,10 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { registerRequest, loginRequest, verifyTokenRequest, updateUserRequest } from "../api/auth";
+import {
+  registerRequest,
+  loginRequest,
+  verifyTokenRequest,
+  updateUserRequest,
+} from "../api/auth";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
@@ -24,6 +29,7 @@ export const AuthProvider = ({ children }) => {
   const signup = async (user) => {
     try {
       const res = await registerRequest(user);
+      localStorage.setItem("token", res.data.token);
       setUser(res.data);
       setisAuthenticated(true);
     } catch (error) {
@@ -34,6 +40,7 @@ export const AuthProvider = ({ children }) => {
   const signin = async (user) => {
     try {
       const res = await loginRequest(user);
+      localStorage.setItem("token", res.data.token);
       setUser(res.data);
       setisAuthenticated(true);
     } catch (error) {
@@ -43,7 +50,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      Cookies.remove("token");
+      localStorage.removeItem("token")
       setisAuthenticated(false);
       setUser(null);
     } catch (error) {
@@ -51,14 +58,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const updateUser = async(user) => {
+  const updateUser = async (user) => {
     try {
       const res = await updateUserRequest(user);
       setUser(res.data);
     } catch (error) {
       setErrors(error.response.data);
     }
-  }
+  };
 
   useEffect(() => {
     if (errors.length > 0) {
@@ -71,16 +78,15 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     async function checkLogin() {
-      const cookies = Cookies.get();
-      //Si no existe ningun token
-      if (!cookies.token) {
+      const token = localStorage.getItem("token");      //Si no existe ningun token
+      if (!token) {
         setisAuthenticated(false);
         setLoading(false);
         return setUser(null);
       }
       try {
         //si existe y verifica que se ha creado
-        const res = await verifyTokenRequest(cookies.token);
+        const res = await verifyTokenRequest(token);
         if (!res.data) {
           setisAuthenticated(false);
           setLoading(false);
@@ -101,7 +107,16 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signup, signin, logout, loading, user, isAuthenticated, errors,updateUser }}
+      value={{
+        signup,
+        signin,
+        logout,
+        loading,
+        user,
+        isAuthenticated,
+        errors,
+        updateUser,
+      }}
     >
       {children}
     </AuthContext.Provider>
